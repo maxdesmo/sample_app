@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
     # 1 line of code!
     has_secure_password
 
-    before_save { |user| user.email = email.downcase }
+    # The ! applies the change to itself
+    before_save { email.downcase! }
 
     validates :name, presence: true, length: { maximum: 50 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
