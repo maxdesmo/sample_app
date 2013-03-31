@@ -18,6 +18,8 @@ describe "Authentication" do
 
       it { should have_selector("title", text: "Sign in") }
       it { should have_error_message('Invalid') }
+      it { should_not have_link("Profile") }
+      it { should_not have_link("Settings") }
 
       describe "after visiting another page" do
         before { click_link "Home" }
@@ -109,6 +111,16 @@ describe "Authentication" do
 
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
+        specify { response.should redirect_to(root_path) }
+      end
+    end
+
+    describe "as admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before { sign_in admin }
+
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before { delete user_path(admin) }
         specify { response.should redirect_to(root_path) }
       end
     end

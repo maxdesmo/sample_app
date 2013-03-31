@@ -12,7 +12,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation 
   # Adds the password and password_confirmation attrs, requires the
   # presence of the password, requires that they match, and adds an
   # authenticate method to compare an encrypted password to the
