@@ -19,6 +19,7 @@ end
 
 group :development do
     gem 'annotate', '2.5.0'
+    gem 'better_errors'
 end
 
 # Gems used only for assets and not required

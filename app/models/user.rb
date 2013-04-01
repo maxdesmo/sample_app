@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   # password_digest to authenticate users. All that for free with
   # 1 line of code!
   has_secure_password
+  # microposts are dependent on their associated user, so they will
+  # be destroyed when their associated user is destroyed
+  has_many :microposts, dependent: :destroy
 
   # The ! applies the change to itself
   before_save { email.downcase! }
@@ -31,6 +34,11 @@ class User < ActiveRecord::Base
   # We don't check for presence, because that's done for password_digest above
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+
+  def feed
+    #This is prelimianry
+    Micropost.where("user_id = ?", id)
+  end
 
   private
 
